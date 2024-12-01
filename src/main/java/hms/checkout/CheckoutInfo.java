@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Checkout;
+package hms.checkout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -93,6 +96,14 @@ public class CheckoutInfo extends javax.swing.JFrame {
                 .addComponent(OKButton)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
+
+        OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NotTimeOver notTimeOver = new NotTimeOver();
+                notTimeOver.setVisible(true);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -76,6 +76,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OKButtonActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;        System.exit(0);&#xa;    }&#xa;});"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

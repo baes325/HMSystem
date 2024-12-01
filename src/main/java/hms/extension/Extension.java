@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package Extension;
+package hms.extension;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -63,6 +66,22 @@ public class Extension extends javax.swing.JFrame {
                     .addComponent(NoButton))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // OK 버튼 클릭 시 새 화면 띄우기
+                SelectExtension selectExtension = new SelectExtension();
+                selectExtension.setVisible(true);
+            }
+        });
+        NoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // No 버튼 클릭 시 프로그램 종료
+                System.exit(0);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
