@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -62,11 +62,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc608;"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                // OK &#xbc84;&#xd2bc; &#xd074;&#xb9ad; &#xc2dc; &#xc0c8; &#xd654;&#xba74; &#xb744;&#xc6b0;&#xae30;&#xa;                SelectExtension selectExtension = new SelectExtension();&#xa;                selectExtension.setVisible(true);&#xa;            }&#xa;        });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="NoButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc544;&#xb2c8;&#xc624;"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="NoButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                // No &#xbc84;&#xd2bc; &#xd074;&#xb9ad; &#xc2dc; &#xd504;&#xb85c;&#xadf8;&#xb7a8; &#xc885;&#xb8cc;&#xa;                System.exit(0);&#xa;            }&#xa;        });"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
