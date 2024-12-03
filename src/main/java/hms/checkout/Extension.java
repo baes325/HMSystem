@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package hms.extension;
+package hms.checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,7 +79,8 @@ public class Extension extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // No 버튼 클릭 시 프로그램 종료
-                System.exit(0);
+                CheckoutInfo checkoutInfo = new CheckoutInfo();
+                checkoutInfo.setVisible(true);
             }
         });
 
