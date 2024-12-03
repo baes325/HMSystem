@@ -31,11 +31,14 @@ public class CheckoutInfo extends javax.swing.JFrame {
 
         CheckoutInfo = new javax.swing.JLabel();
         CheckoutTime = new javax.swing.JLabel();
-        CheckoutTimeInput = new javax.swing.JTextField();
+        CheckoutHourInput = new javax.swing.JTextField();
         ClientFeedback = new javax.swing.JLabel();
         OKButton = new javax.swing.JButton();
         JScrollPane1 = new javax.swing.JScrollPane();
         FeedbackInput = new javax.swing.JTextArea();
+        Hour = new javax.swing.JLabel();
+        CheckoutMinuteInput = new javax.swing.JTextField();
+        Minute = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,7 +46,11 @@ public class CheckoutInfo extends javax.swing.JFrame {
 
         CheckoutTime.setText("체크아웃 시간 :");
 
-        CheckoutTimeInput.setText("체크아웃 시간");
+        CheckoutHourInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckoutHourInputActionPerformed(evt);
+            }
+        });
 
         ClientFeedback.setText("고객 피드백 :");
 
@@ -53,13 +60,17 @@ public class CheckoutInfo extends javax.swing.JFrame {
         FeedbackInput.setRows(5);
         JScrollPane1.setViewportView(FeedbackInput);
 
+        Hour.setText("시");
+
+        Minute.setText("분");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ClientFeedback)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -67,7 +78,13 @@ public class CheckoutInfo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(CheckoutTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CheckoutTimeInput)))
+                        .addComponent(CheckoutHourInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Hour)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CheckoutMinuteInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Minute)))
                 .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -87,7 +104,10 @@ public class CheckoutInfo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CheckoutTime)
-                    .addComponent(CheckoutTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CheckoutHourInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Hour)
+                    .addComponent(CheckoutMinuteInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Minute))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ClientFeedback)
@@ -108,17 +128,24 @@ public class CheckoutInfo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CheckoutHourInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutHourInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckoutHourInputActionPerformed
+
     /**
      * @param args the command line arguments
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CheckoutHourInput;
     private javax.swing.JLabel CheckoutInfo;
+    private javax.swing.JTextField CheckoutMinuteInput;
     private javax.swing.JLabel CheckoutTime;
-    private javax.swing.JTextField CheckoutTimeInput;
     private javax.swing.JLabel ClientFeedback;
     private javax.swing.JTextArea FeedbackInput;
+    private javax.swing.JLabel Hour;
     private javax.swing.JScrollPane JScrollPane1;
+    private javax.swing.JLabel Minute;
     private javax.swing.JButton OKButton;
     // End of variables declaration//GEN-END:variables
 }

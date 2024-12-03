@@ -38,9 +38,9 @@ public class NotTimeOver extends javax.swing.JFrame {
 
         jLabel1.setText("총 결제금액은");
 
-        PaymentAmount.setText("n (원)");
+        PaymentAmount.setText("n");
 
-        jLabel2.setText("입니다.");
+        jLabel2.setText("(원) 입니다.");
 
         OKButton.setText("확인");
 
@@ -60,7 +60,7 @@ public class NotTimeOver extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(138, 138, 138)
                         .addComponent(OKButton)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

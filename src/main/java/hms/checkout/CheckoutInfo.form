@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="ClientFeedback" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -34,7 +34,13 @@
                   <Group type="102" attributes="0">
                       <Component id="CheckoutTime" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="CheckoutTimeInput" max="32767" attributes="0"/>
+                      <Component id="CheckoutHourInput" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Hour" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="CheckoutMinuteInput" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Minute" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="53" max="32767" attributes="0"/>
@@ -62,7 +68,10 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CheckoutTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="CheckoutTimeInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CheckoutHourInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Hour" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CheckoutMinuteInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Minute" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -87,10 +96,10 @@
         <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc544;&#xc6c3; &#xc2dc;&#xac04; :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="CheckoutTimeInput">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc544;&#xc6c3; &#xc2dc;&#xac04;"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="CheckoutHourInput">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckoutHourInputActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="ClientFeedback">
       <Properties>
@@ -120,5 +129,17 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="Hour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc2dc;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="CheckoutMinuteInput">
+    </Component>
+    <Component class="javax.swing.JLabel" name="Minute">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xbd84;"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
