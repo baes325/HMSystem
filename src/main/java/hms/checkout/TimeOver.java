@@ -38,8 +38,6 @@ public class TimeOver extends javax.swing.JFrame {
 
         jLabel1.setText("체크아웃 시간 경과로 총 결제금액은");
 
-        PaymentAmount.setText("n");
-
         jLabel2.setText("(원 )입니다.");
 
         OKButton.setText("확인");

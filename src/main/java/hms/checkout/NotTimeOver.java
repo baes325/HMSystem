@@ -38,8 +38,6 @@ public class NotTimeOver extends javax.swing.JFrame {
 
         jLabel1.setText("총 결제금액은");
 
-        PaymentAmount.setText("n");
-
         jLabel2.setText("(원) 입니다.");
 
         OKButton.setText("확인");

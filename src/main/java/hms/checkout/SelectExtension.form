@@ -38,7 +38,7 @@
                       <Component id="OKButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
+              <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,9 +65,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ExtensionDate">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc5f0;&#xc7a5; &#xc77c;&#xc218;"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExtensionDateActionPerformed"/>
       </Events>

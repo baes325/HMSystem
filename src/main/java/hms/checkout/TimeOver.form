@@ -65,9 +65,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="PaymentAmount">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="n"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

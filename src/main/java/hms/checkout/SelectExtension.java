@@ -39,7 +39,6 @@ public class SelectExtension extends javax.swing.JFrame {
 
         ExtensionDay.setText("연장 일수를 입력해주세요. :");
 
-        ExtensionDate.setText("연장 일수");
         ExtensionDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExtensionDateActionPerformed(evt);
@@ -71,7 +70,7 @@ public class SelectExtension extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(OKButton)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
