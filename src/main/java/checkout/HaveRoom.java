@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  *
  * @author Suvier
  */
-public class NoRoom extends javax.swing.JFrame {
+public class HaveRoom extends javax.swing.JFrame {
 
     /**
-     * Creates new form NoRoom
+     * Creates new form HaveRoom
      */
-    public NoRoom() {
+    public HaveRoom() {
         initComponents();
     }
 
@@ -29,12 +29,12 @@ public class NoRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        NoRooms = new javax.swing.JLabel();
+        ExtensionComplete = new javax.swing.JLabel();
         OKButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        NoRooms.setText("남은 방이 없습니다.");
+        ExtensionComplete.setText("연장이 완료되었습니다.");
 
         OKButton.setText("확인");
 
@@ -45,21 +45,21 @@ public class NoRoom extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(NoRooms))
+                        .addGap(62, 62, 62)
+                        .addComponent(ExtensionComplete))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(88, 88, 88)
                         .addComponent(OKButton)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(NoRooms)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
+                .addComponent(ExtensionComplete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(OKButton)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         OKButton.addActionListener(new ActionListener() {
@@ -78,7 +78,7 @@ public class NoRoom extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel NoRooms;
+    private javax.swing.JLabel ExtensionComplete;
     private javax.swing.JButton OKButton;
     // End of variables declaration//GEN-END:variables
 }

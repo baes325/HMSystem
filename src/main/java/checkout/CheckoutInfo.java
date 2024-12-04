@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -120,8 +123,41 @@ public class CheckoutInfo extends javax.swing.JFrame {
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NotTimeOver notTimeOver = new NotTimeOver();
-                notTimeOver.setVisible(true);
+                try {
+                    int hour = Integer.parseInt(CheckoutHourInput.getText().trim());
+                    int minute = Integer.parseInt(CheckoutMinuteInput.getText().trim());
+
+                    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+                        javax.swing.JOptionPane.showMessageDialog(null, "올바른 시간을 입력하세요 (0-23시, 0-59분).");
+                        return;
+                    }
+
+                    if (hour > 11 || (hour == 11 && minute > 0)) {
+                        TimeOver timeOver = new TimeOver();
+                        timeOver.setVisible(true);
+                    }
+                    else {
+                        NotTimeOver notTimeOver = new NotTimeOver();
+                        notTimeOver.setVisible(true);
+                    }
+                }
+                catch (NumberFormatException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "숫자를 입력하세요.");
+                }
+                String feedbackText = FeedbackInput.getText().trim();
+                if (feedbackText.isEmpty()) {
+                    return;
+                }
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("고객 피드백.txt", true))) {
+                    writer.write(feedbackText);
+                    writer.newLine();
+                    javax.swing.JOptionPane.showMessageDialog(null, "피드백이 저장되었습니다.");
+                } catch (IOException ioException) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "파일 저장 중 오류가 발생했습니다: " + ioException.getMessage());
+                }
+
+                FeedbackInput.setText("");
             }
         });
 

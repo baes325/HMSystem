@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
-import hms.checkout.HaveRoom;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +19,10 @@ public class SelectExtension extends javax.swing.JFrame {
     public SelectExtension() {
         initComponents();
     }
-
+    
+    public static int roomCount = 1;
+    public static int extensionDays = 0;
+    public static int days = 5;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,13 +66,13 @@ public class SelectExtension extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(ExtensionDay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ExtensionDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ExtensionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Date))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(OKButton)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,9 +90,24 @@ public class SelectExtension extends javax.swing.JFrame {
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // OK 버튼 클릭 시 SelectExtension 창 열기
-                HaveRoom haveRoom = new HaveRoom();
-                haveRoom.setVisible(true);
+                try {
+                    extensionDays = Integer.parseInt(ExtensionDate.getText());
+                }
+                catch (NumberFormatException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "유효한 숫자를 입력해주세요.");
+                }
+                if (roomCount > 0) {
+                    HaveRoom haveRoom = new HaveRoom();
+                    haveRoom.setVisible(true);
+                    roomCount--;
+                    days += extensionDays;
+                    SelectExtension.this.dispose();
+                }
+                else {
+                    NoRoom noRoom = new NoRoom();
+                    noRoom.setVisible(true);
+                    SelectExtension.this.dispose();
+                }
             }
         });
 

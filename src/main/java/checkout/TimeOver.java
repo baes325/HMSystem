@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
  * @author Suvier
  */
 public class TimeOver extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form Payment
@@ -78,6 +79,12 @@ public class TimeOver extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        PaymentAmount.setEditable(false);
+        int days = SelectExtension.days + 1;
+        int ratePerDay = 10000;
+        int totalAmount = days * ratePerDay;
+        String strAmount = Integer.toString(totalAmount);
+        PaymentAmount.setText(strAmount);
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +37,12 @@ public class NotTimeOver extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("총 결제금액은");
+
+        PaymentAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaymentAmountActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("(원) 입니다.");
 
@@ -74,6 +80,12 @@ public class NotTimeOver extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        PaymentAmount.setEditable(false);
+        int days = SelectExtension.days;
+        int ratePerDay = 10000;
+        int totalAmount = days * ratePerDay;
+        String strAmount = Integer.toString(totalAmount);
+        PaymentAmount.setText(strAmount);
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,6 +95,10 @@ public class NotTimeOver extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void PaymentAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PaymentAmountActionPerformed
 
     /**
      * @param args the command line arguments

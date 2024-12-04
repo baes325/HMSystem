@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hms.checkout;
+package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  *
  * @author Suvier
  */
-public class HaveRoom extends javax.swing.JFrame {
+public class NoRoom extends javax.swing.JFrame {
 
     /**
-     * Creates new form HaveRoom
+     * Creates new form NoRoom
      */
-    public HaveRoom() {
+    public NoRoom() {
         initComponents();
     }
 
@@ -29,12 +29,12 @@ public class HaveRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ExtensionComplete = new javax.swing.JLabel();
+        NoRooms = new javax.swing.JLabel();
         OKButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ExtensionComplete.setText("연장이 완료되었습니다.");
+        NoRooms.setText("남은 방이 없습니다.");
 
         OKButton.setText("확인");
 
@@ -45,27 +45,28 @@ public class HaveRoom extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(ExtensionComplete))
+                        .addGap(89, 89, 89)
+                        .addComponent(NoRooms))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
+                        .addGap(105, 105, 105)
                         .addComponent(OKButton)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(ExtensionComplete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(29, 29, 29)
+                .addComponent(NoRooms)
+                .addGap(18, 18, 18)
                 .addComponent(OKButton)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                CheckoutInfo checkoutInfo = new CheckoutInfo();
+                checkoutInfo.setVisible(true);
             }
         });
 
@@ -78,7 +79,7 @@ public class HaveRoom extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ExtensionComplete;
+    private javax.swing.JLabel NoRooms;
     private javax.swing.JButton OKButton;
     // End of variables declaration//GEN-END:variables
 }

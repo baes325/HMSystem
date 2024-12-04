@@ -63,7 +63,7 @@
         <Property name="text" type="java.lang.String" value="&#xc608;"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                if (roomCount &gt; 0) {&#xa;                    HaveRoom haveRoom = new HaveRoom();&#xa;                    haveRoom.setVisible(true);&#xa;                    roomCount--;&#xa;                    }&#xa;                else {&#xa;                    NoRoom noRoom = new NoRoom();&#xa;                    noRoom.setVisible(true);&#xa;                    }&#xa;                }&#xa;            }&#xa;        });"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                    SelectExtension selectExtension = new SelectExtension();&#xa;                    selectExtension.setVisible(true);&#xa;                }&#xa;            });"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="NoButton">
