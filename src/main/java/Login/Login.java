@@ -4,6 +4,7 @@
  */
 package Login;
 
+import HotelMain.HotelMainFram;
 import javax.swing.JOptionPane;
 
 /**
@@ -123,8 +124,14 @@ public class Login extends javax.swing.JFrame {
          if (ID.contains("user") && password.equals("123hotel")) {
             if (ID.contains("M")) {
             JOptionPane.showMessageDialog(null, "반갑습니다. 관리자, " + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
+            HotelMainFram addition = new HotelMainFram();
+    addition.setVisible(true);
+    this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "반갑습니다. 직원, " + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
+            HotelMainFram addition = new HotelMainFram();
+    addition.setVisible(true);
+            this.setVisible(false);
         }
         } else {
             JOptionPane.showMessageDialog(null, "로그인 실패. 다시 입력해주세요.","로그인 실패",JOptionPane.WARNING_MESSAGE);
