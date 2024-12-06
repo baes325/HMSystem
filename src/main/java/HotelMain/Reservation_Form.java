@@ -4,17 +4,21 @@
  */
 package HotelMain;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.xml.crypto.Data;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author hoon
  */
 public class Reservation_Form extends javax.swing.JFrame {
+    private boolean isEditMode = false; // 수정 모드 여부
+    private String originalClientNum; // 수정 전 클라이언트 번호 (파일에서 찾아 수정)
 
     private String name = null;
     private String tel = null;
@@ -25,6 +29,7 @@ public class Reservation_Form extends javax.swing.JFrame {
     private String checkin = null;
     private String payway = null;
     private String roomtype = null;
+    private String checkcheck = null;
     
     /**
      * Creates new form Reservation_Form
@@ -35,6 +40,44 @@ public class Reservation_Form extends javax.swing.JFrame {
         // 예약 창 초기화 (필요하면 기존 코드 여기에 추가)
         setVisible(true);
 
+    }
+    
+    public void setReservationData(String name, String tel, String room, String clientNum, String cardNum, 
+                                String payday, String checkin, String payWay, String roomType, String checkCheck) {
+    Name.setText(name);
+    String[] phoneParts = tel.split("-");
+    PhoneNum1.setText(phoneParts[0]);
+    PhoneNum2.setText(phoneParts[1]);
+    
+    RoomNum.setText(room);
+    ClientNum.setText(clientNum);
+    CardNum1.setText(cardNum.substring(0, 4));
+    CardNum2.setText(cardNum.substring(4, 8));
+    CardNum3.setText(cardNum.substring(8, 12));
+    CardNum4.setText(cardNum.substring(12, 16));
+    BillY.setText(payday.substring(0, 4));
+    BillM.setText(payday.substring(4, 6));
+    BillD.setText(payday.substring(6, 8));
+    CheckinY.setText(checkin.substring(0, 4));
+    CheckinM.setText(checkin.substring(4, 6));
+    CheckinD.setText(checkin.substring(6, 8));
+    
+    PayWay.setSelectedItem(payWay);
+    RoomType.setSelectedItem(roomType);
+
+    // 체크인 유무 설정
+    RoomType.setSelectedItem(roomType); // 콤보박스에 값 설정 
+        isEditMode = true; // 수정 모드 활성화
+        originalClientNum = clientNum; // 수정할 클라이언트 번호 저장
+    }
+    
+    public void setEditMode(boolean isEditMode) {
+        this.isEditMode = isEditMode;
+        if (isEditMode) {
+            jButton1.setText("수정 완료");
+        } else {
+            jButton1.setText("예약");
+        }
     }
 
     /**
@@ -88,6 +131,8 @@ public class Reservation_Form extends javax.swing.JFrame {
         CheckinD = new java.awt.TextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        CheckCheck = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +239,10 @@ public class Reservation_Form extends javax.swing.JFrame {
 
         jLabel23.setText("일");
 
+        jLabel24.setText("체크인 유무");
+
+        CheckCheck.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "체크인 유무", "O", "X" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,52 +257,56 @@ public class Reservation_Form extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PayWay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(93, 93, 93))
+                                .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(RoomNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel3))
-                                        .addGap(1, 1, 1)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(RoomNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CardNum1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(CardNum1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(41, 41, 41)
-                                                        .addComponent(jLabel12))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(textField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel16)))
+                                                .addGap(41, 41, 41)
+                                                .addComponent(jLabel12))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(textField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(PhoneNum1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(CardNum2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel13)
-                                                    .addComponent(jLabel17))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(CardNum3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                                                    .addComponent(PhoneNum2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(229, 229, 229)
-                                        .addComponent(jLabel14)
+                                                .addComponent(jLabel16)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CardNum4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(43, 43, 43)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(PhoneNum1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(CardNum2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel17))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(CardNum3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                            .addComponent(PhoneNum2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(229, 229, 229)
+                                        .addComponent(jLabel14))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel24)
+                                            .addGap(20, 20, 20)
+                                            .addComponent(CheckCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(PayWay, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CardNum4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -298,14 +351,14 @@ public class Reservation_Form extends javax.swing.JFrame {
                 .addGap(320, 320, 320)
                 .addComponent(jLabel5)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(322, 322, 322))
             .addGroup(layout.createSequentialGroup()
                 .addGap(343, 343, 343)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(322, 322, 322))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +367,7 @@ public class Reservation_Form extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -378,7 +431,11 @@ public class Reservation_Form extends javax.swing.JFrame {
                         .addComponent(PayWay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11))
                     .addComponent(RoomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(CheckCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addComponent(jButton1)
                 .addGap(28, 28, 28))
         );
@@ -387,37 +444,81 @@ public class Reservation_Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // ReserNum 창 열기
-        name = Name.getText();  // 이름 입력받기
-        tel = "010" + PhoneNum1.getText() + PhoneNum2.getText();
-        room = RoomNum.getText();
-        clientnum = ClientNum.getText();
-        cardnum = CardNum1.getText() + CardNum2.getText() + CardNum3.getText() + CardNum4.getText();
-        payday = BillY.getText() + BillM.getText() + BillD.getText();
-        checkin = CheckinY.getText() + CheckinM.getText() + CheckinD.getText();
-        payway = (String) PayWay.getSelectedItem();
-        roomtype = (String) RoomType.getSelectedItem();
+           // 필드 값 가져오기
+    name = Name.getText();  
+    tel = PhoneNum1.getText() + "-" + PhoneNum2.getText();
+    room = RoomNum.getText();
+    clientnum = ClientNum.getText();
+    cardnum = CardNum1.getText() + CardNum2.getText() + CardNum3.getText() + CardNum4.getText();
+    payday = BillY.getText() + BillM.getText() + BillD.getText();
+    checkin = CheckinY.getText() + CheckinM.getText() + CheckinD.getText();
+    payway = (String) PayWay.getSelectedItem();
+    roomtype = (String) RoomType.getSelectedItem();
+    checkcheck = (String) CheckCheck.getSelectedItem();
 
-        String Data = name + "/" + tel + "/" + room + "/" + clientnum + "/" + cardnum + "/" + payday + "/" + checkin + "/" + payday + "/" + roomtype;
-         
-        
-        
-        String paths = System.getProperty("user.dir");
-        File reservationFile = new File(paths + "/clientInfo1.txt");
+    // 필수 값 확인
+    if (name.isEmpty() || tel.isEmpty() || room.isEmpty() || clientnum.isEmpty() || cardnum.isEmpty() || payday.isEmpty() || checkin.isEmpty() || payway.isEmpty() || roomtype.isEmpty()||checkcheck.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "모든 필드를 입력하세요.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        // 파일 쓰기
-        try (BufferedWriter br = new BufferedWriter(new FileWriter(reservationFile, true))) {
-            br.write(Data); // 데이터를 파일에 씀
-            br.newLine();
-            System.out.println("데이터가 파일에 저장되었습니다.");
-        } catch (IOException e) {
-            e.printStackTrace(); // 예외 처리
+    // 데이터 생성
+    String Data = name + "/" + tel + "/" + room + "/" + clientnum + "/" + cardnum + "/" + payday + "/" + checkin + "/" + payway + "/" + roomtype + "/" + checkcheck;
+
+    // 파일 경로 설정
+    String paths = System.getProperty("user.dir");
+    File reservationFile = new File(paths + "/clientInfo1.txt");
+
+    try {
+        if (isEditMode) {
+            // 수정 모드 처리
+            File tempFile = new File(paths + "/clientInfo1_temp.txt");
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(reservationFile));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+                String line;
+                boolean found = false;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] rowData = line.split("/");
+                    if (rowData[3].equals(originalClientNum)) { // 클라이언트 번호로 찾기
+                        writer.write(Data); // 수정 데이터로 교체
+                        found = true;
+                    } else {
+                        writer.write(line); // 원본 데이터 유지
+                    }
+                    writer.newLine();
+                }
+
+                if (!found) {
+                    JOptionPane.showMessageDialog(this, "수정할 데이터를 찾을 수 없습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            // 파일 교체
+            reservationFile.delete();
+            tempFile.renameTo(reservationFile);
+
+        } else {
+            // 신규 데이터 추가
+            try (BufferedWriter br = new BufferedWriter(new FileWriter(reservationFile, true))) {
+                br.write(Data);
+                br.newLine();
+                System.out.println("새 예약이 파일에 저장되었습니다.");
+            }
         }
 
-        ReservNum reservNumPage = new ReservNum();
-        reservNumPage.UserName(Name.getText());  // 이름을 전달
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 
-        reservNumPage.setVisible(true);          // 창을 보이게 설정
+    // 예약 번호 창 표시
+    if (!isEditMode) {
+        ReservNum reservNumPage = new ReservNum();
+        reservNumPage.UserName(Name.getText());
+        reservNumPage.setVisible(true);
+    }
 
         // 현재 창 닫기 (필요시)
         this.dispose();
@@ -481,8 +582,22 @@ public class Reservation_Form extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Reservation_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
+                try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Reservation_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Reservation_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Reservation_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Reservation_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -499,6 +614,7 @@ public class Reservation_Form extends javax.swing.JFrame {
     private java.awt.TextField CardNum2;
     private java.awt.TextField CardNum3;
     private java.awt.TextField CardNum4;
+    private javax.swing.JComboBox<String> CheckCheck;
     private java.awt.TextField CheckinD;
     private java.awt.TextField CheckinM;
     private java.awt.TextField CheckinY;
@@ -526,6 +642,7 @@ public class Reservation_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

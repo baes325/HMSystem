@@ -144,8 +144,31 @@ public class HotelMainFram extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "체크아웃할 데이터를 선택하세요.");
     }
 });
+    
+    ModifyButt.addActionListener(e -> {
+    int selectedRow = clientTable.getSelectedRow();
+    if (selectedRow != -1) {
+        // 선택된 행의 데이터 가져오기
+        String name = clientTable.getValueAt(selectedRow, 0).toString();
+        String tel = clientTable.getValueAt(selectedRow, 1).toString();
+        String room = clientTable.getValueAt(selectedRow, 2).toString();
+        String clientNum = clientTable.getValueAt(selectedRow, 3).toString();
+        String cardNum = clientTable.getValueAt(selectedRow, 4).toString();
+        String payday = clientTable.getValueAt(selectedRow, 5).toString();
+        String checkin = clientTable.getValueAt(selectedRow, 6).toString();
+        String payWay = clientTable.getValueAt(selectedRow, 7).toString();
+        String roomType = clientTable.getValueAt(selectedRow, 8).toString();
+        String checkCheck = clientTable.getValueAt(selectedRow, 9).toString();
 
-         
+        // Reservation_Form 열기
+        Reservation_Form reservationForm = new Reservation_Form();
+        reservationForm.setReservationData(name, tel, room, clientNum, cardNum, payday, checkin, payWay, roomType,checkCheck);
+        reservationForm.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(null, "수정할 행을 선택하세요.");
+    }
+});
+    
         setVisible(true);
     }
 
@@ -160,16 +183,27 @@ public class HotelMainFram extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "clientInfo1.txt 파일이 존재하지 않습니다.");
                 return;
             }
-
+            
+            
+            
             // 파일 읽기
             BufferedReader br = new BufferedReader(new FileReader(reservationFile));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] rowData = line.split("/"); // "/" 구분자로 데이터 분리
-                tableModel.addRow(new Object[]{ // JTable에 데이터 추가
-                    rowData[0], rowData[1], "X" // 데이터가 고객명, 예약번호, 체크인 여부로 구성됨
-                });
-            }
+                tableModel.addRow(new Object[]{
+        rowData[0], // 고객명
+        rowData[1], // 전화번호
+        rowData[2], // 객실
+        rowData[3], // 손님수
+        rowData[4], // 카드번호
+        rowData[5], // 결제일
+        rowData[6], // 체크인일
+        rowData[7], // 결제방식
+        rowData[8],  // 객실 종류
+        rowData[9] // 체크인 유무          
+    });
+}
             br.close(); // 리소스 닫기
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "파일을 읽을 수 없습니다: " + e.getMessage());
@@ -219,6 +253,7 @@ public class HotelMainFram extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         ReservationButt = new javax.swing.JButton();
@@ -236,6 +271,17 @@ public class HotelMainFram extends javax.swing.JFrame {
         DeleteButt = new javax.swing.JButton();
 
         jLabel3.setText("예약 명단");
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -256,7 +302,7 @@ public class HotelMainFram extends javax.swing.JFrame {
 
             },
             new String [] {
-                "고객명", "전화번호", "체크인 유무"
+                "고객명", "전화번호", "객실", "손님 수", "카드번호", "결제일", "체크인일", "결제방식", "객실종류", "체크인 유무"
             }
         ));
         jScrollPane3.setViewportView(clientTable);
@@ -319,70 +365,70 @@ public class HotelMainFram extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 198, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(172, 172, 172))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ModifyButt, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReservationButt, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DeleteButt, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CheckoutButt))
+                        .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(73, 73, 73))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ReservationButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CheckoutButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ModifyButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DeleteButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(366, 366, 366)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(jLabel5)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(315, 315, 315)
+                        .addComponent(jLabel2)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
                         .addComponent(ReservationButt)
                         .addGap(18, 18, 18)
                         .addComponent(ModifyButt)
-                        .addGap(22, 22, 22)
-                        .addComponent(DeleteButt)
                         .addGap(18, 18, 18)
-                        .addComponent(CheckoutButt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(DeleteButt)
+                        .addGap(26, 26, 26)
+                        .addComponent(CheckoutButt)))
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(jButton4)
-                        .addGap(38, 38, 38)
+                        .addGap(30, 30, 30)
                         .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton7))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
 
@@ -401,7 +447,40 @@ public class HotelMainFram extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckoutButtActionPerformed
 
     private void ModifyButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyButtActionPerformed
-        // TODO add your handling code here:
+         int selectedRow = jTable1.getSelectedRow();  // 선택된 행 인덱스
+    if (selectedRow != -1) {  // 유효한 선택인지 확인
+        // 테이블의 열 수 확인
+        int columnCount = jTable1.getColumnCount();  // 열 개수
+
+        if (columnCount >= 10) {  // 9개 이상의 열이 있는지 확인
+            // 테이블의 각 컬럼에서 데이터 가져오기
+            String clientNum = (String) jTable1.getValueAt(selectedRow, 3);  // 클라이언트 번호 (예시)
+            String name = (String) jTable1.getValueAt(selectedRow, 0);  // 이름 (예시)
+            String phone = (String) jTable1.getValueAt(selectedRow, 1);  // 전화번호 (예시)
+            String room = (String) jTable1.getValueAt(selectedRow, 2);  // 객실 (예시)
+            String cardNumber = (String) jTable1.getValueAt(selectedRow, 4);  // 카드번호 (예시)
+            String payday = (String) jTable1.getValueAt(selectedRow, 5);  // 결제일 (예시)
+            String checkin = (String) jTable1.getValueAt(selectedRow, 6);  // 체크인 날짜 (예시)
+            String payWay = (String) jTable1.getValueAt(selectedRow, 7);  // 결제 방식 (예시)
+            String roomType = (String) jTable1.getValueAt(selectedRow, 8);  // 객실 종류 (예시)
+            String checkCheck =(String) jTable1.getValueAt(selectedRow, 9); // 체크인 유무
+            // Reservation_Form을 생성하고 수정 모드로 설정
+            Reservation_Form reservationForm = new Reservation_Form();
+            
+            // 기존 데이터를 Reservation_Form에 전달
+            reservationForm.setReservationData(name, phone, room, clientNum, cardNumber, payday, checkin, payWay, roomType,checkCheck);
+            
+            // 수정 모드로 표시
+            reservationForm.setEditMode(true);
+            
+            // Reservation_Form 창 보이기
+            reservationForm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "테이블의 열이 부족합니다. 데이터를 수정할 수 없습니다.", "알림", JOptionPane.WARNING_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "수정할 항목을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_ModifyButtActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -435,6 +514,7 @@ public class HotelMainFram extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
