@@ -6,6 +6,9 @@ package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +21,78 @@ public class HaveRoom extends javax.swing.JFrame {
      */
     public HaveRoom() {
         initComponents();
+    }
+    
+    public class FileRead {
+        public static class ClientInfo {
+            public int checkinDate;
+            public int checkoutDate;
+            public String roomType;
+            
+            public int ciYear, ciMonth, ciDay;
+            public int coYear, coMonth, coDay;
+            
+            public ClientInfo(int checkinDate, int checkoutDate, String roomType) {
+                this.checkinDate = checkinDate;
+                this.checkoutDate = checkoutDate;
+                this.roomType = roomType;
+                
+                convertDate(checkinDate, "checkin");
+                convertDate(checkoutDate, "checkout");
+            }
+            
+            private void convertDate(int date, String type) {
+                int year = date / 10000;
+                int month = (date / 100) % 100;
+                int day = date % 100;
+                
+                if (type.equals("checkin")) {
+                    this.ciYear = year;
+                    this.ciMonth = month;
+                    this.ciDay = day;
+                }
+                
+                else if (type.equals("checkout")) {
+                    this.coYear = year;
+                    this.coMonth = month;
+                    this.coDay = day;
+                }
+            }
+        }
+        
+        public static List<ClientInfo> readClientData(String filepath) {
+            List<ClientInfo> clientDataList = new ArrayList<>();
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+                String line;
+                
+                while ((line = reader.readLine()) != null) {
+                    String[] rowData = line.split("/");
+                    
+                    if (rowData.length >= 10) {
+                        int checkinDate = parseToInt(rowData[6]);
+                        int checkoutDate = parseToInt(rowData[5]);
+                        String roomType = rowData[8];
+                        
+                        clientDataList.add(new ClientInfo(checkoutDate, checkinDate, roomType));
+                    }
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            return clientDataList;
+        }
+        
+        private static int parseToInt(String str) {
+            try {
+                return Integer.parseInt(str.trim());
+            }
+            catch (NumberFormatException e) {
+                return 0;
+            }
+        }
     }
 
     /**
