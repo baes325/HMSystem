@@ -4,7 +4,6 @@
  */
     package manager;
 
-//import com.mycompany.test.Fix;
     import javax.swing.JOptionPane;
     import javax.swing.table.DefaultTableModel;
 
@@ -132,17 +131,17 @@ public class TotalReturnView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     //수정창으로 넘어가게 하기
-//    int selectedRow = jTable2.getSelectedRow();
-//    if (selectedRow != -1) {
-//        String name = (String) jTable2.getValueAt(selectedRow, 0);
-//        String id = (String) jTable2.getValueAt(selectedRow, 1);
-//        boolean Admin = (boolean) jTable2.getValueAt(selectedRow, 2);
-//        
-//        Fix fix = new Fix(this, name, id, Admin, selectedRow); // 수정 화면으로 데이터를 전달
-//        fix.setVisible(true);
-//    } else {
-//        JOptionPane.showMessageDialog(this, "수정할 행을 선택하세요.");
-//    }
+    int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow != -1) {
+        String name = (String) jTable2.getValueAt(selectedRow, 0);
+        String id = (String) jTable2.getValueAt(selectedRow, 1);
+        boolean Admin = (boolean) jTable2.getValueAt(selectedRow, 2);
+        
+        Fix fix = new Fix(this, name, id, Admin, selectedRow); // 수정 화면으로 데이터를 전달
+        fix.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "수정할 행을 선택하세요.");
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
