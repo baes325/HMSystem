@@ -58,6 +58,21 @@ public class HaveRoom extends javax.swing.JFrame {
                     this.coDay = day;
                 }
             }
+            
+            public void extendCheckoutDate(int extensionDays) {
+                this.coDay = extensionDays;
+                
+                while (this.coDay >30) {
+                    this.coDay -= 30;
+                    this.coMonth += 1;
+                }
+                while (this.coMonth > 12) {
+                    this.coMonth -= 12;
+                    this.coYear += 1;
+                }
+                
+                this.checkoutDate = (this.coYear * 10000) + (this.coMonth * 100) + this.coDay;
+            }
         }
         
         public static List<ClientInfo> readClientData(String filepath) {
@@ -85,6 +100,35 @@ public class HaveRoom extends javax.swing.JFrame {
             return clientDataList;
         }
         
+        public static void updateCheckoutDate(String filePath, String targetClientName, int extensionDays) {
+            File inputFile = new File(filePath);
+            File tempFile = new File(filePath + "_temp");
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                 String line;
+                 
+                 while ((line = reader.readLine()) != null) {
+                     String[] rowData = line.split("/");
+                     if (rowData[0].equals(targetClientName)) {
+                         int currentCheckoutDate = parseToInt(rowData[5]);
+                         int newCheckoutDate = addDaysToIntDate(currentCheckoutDate, extensionDays);
+                         rowData[5] = Integer.toString(newCheckoutDate);
+                         line = String.join("/", rowData);
+                     }
+                     writer.write(line);
+                     writer.newLine();
+                 }
+             }
+            catch (IOException e) {
+                e.printStackTrace;
+            }
+            
+            if (inputFile.delete()) {
+                tempFile.renameTo(inputFile);
+            }
+        }
+        
         private static int parseToInt(String str) {
             try {
                 return Integer.parseInt(str.trim());
@@ -92,6 +136,22 @@ public class HaveRoom extends javax.swing.JFrame {
             catch (NumberFormatException e) {
                 return 0;
             }
+        }
+        
+        private static int addDaysToIntDate(int date, int daysToAdd) {
+            int year = date / 10000;
+            int month = (date / 100) % 100;
+            int day = date % 100;
+            
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.set(year, month - 1, day);
+            calendar.add(java.util.Calendar.DAY_OF_MONTH, daysToAdd);
+            
+            year = calendar.get(java.util.Calendar.YEAR);
+            month = calendar.get(java.util.Calendar.MONTH);
+            day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+            
+            return year * 10000 + month * 100 + day;
         }
     }
 
@@ -137,11 +197,11 @@ public class HaveRoom extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        OKButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
+        OKButton.addActionListener(e -> {
+            FileRead.updateCheckoutDate("clientInfo1.txt", selectedClient, newCheckoutDate);
+
+            JOptionPane.showMessage(this, "체크아웃 날짜가 성공적으로 연장되었습니다.");
+            this.dispose();
         });
 
         pack();

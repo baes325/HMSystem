@@ -61,7 +61,7 @@
         <Property name="text" type="java.lang.String" value="&#xd655;&#xc778;"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                System.exit(0);&#xa;            }&#xa;        });"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(e -&gt; {&#xa;    FileRead.updateCheckoutDate(&quot;clientInfo1.txt&quot;, selectedClient, newCheckoutDate);&#xa;&#xa;    JOptionPane.showMessage(this, &quot;&#xccb4;&#xd06c;&#xc544;&#xc6c3; &#xb0a0;&#xc9dc;&#xac00; &#xc131;&#xacf5;&#xc801;&#xc73c;&#xb85c; &#xc5f0;&#xc7a5;&#xb418;&#xc5c8;&#xc2b5;&#xb2c8;&#xb2e4;.&quot;);&#xa;    this.dispose();&#xa;});"/>
       </AuxValues>
     </Component>
   </SubComponents>

@@ -20,9 +20,33 @@ public class SelectExtension extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static int roomCount = 1;
-    public static int extensionDays = 0;
-    public static int days = 5;
+    public int calculateNewCheckoutDate(int currentCheckoutDate, int extensionDays) {
+        int year = currentCheckoutDate / 10000;
+        int month = (currentCheckoutDate / 100) % 100;
+        int day = currentCheckoutDate % 100;
+        
+        day += extensionDays;
+        
+        if (day > 30) {
+            month += day / 30;
+            day = day % 30;
+        }
+        if (month > 12) {
+            year += month / 12;
+            month = month % 12;
+        }
+        return year * 10000 + month * 100 + day;
+    }
+    
+    public boolean isRoomAvailabe(int newCheckoutDate, String roomNumber, List<ClientInfo> allClients) {
+        for (ClientInfo client : allClients) {
+            if (client.roomNumber.equal(roomNumber) && client.checkInDate <= newCheckoutDate) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,27 +111,21 @@ public class SelectExtension extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        OKButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    extensionDays = Integer.parseInt(ExtensionDate.getText());
-                }
-                catch (NumberFormatException ex) {
-                    javax.swing.JOptionPane.showMessageDialog(null, "유효한 숫자를 입력해주세요.");
-                }
-                if (roomCount > 0) {
-                    HaveRoom haveRoom = new HaveRoom();
-                    haveRoom.setVisible(true);
-                    roomCount--;
-                    days += extensionDays;
-                    SelectExtension.this.dispose();
-                }
-                else {
-                    NoRoom noRoom = new NoRoom();
-                    noRoom.setVisible(true);
-                    SelectExtension.this.dispose();
-                }
+        OKButton.addActionListener(e -> {
+            int extensionDays = Integer.parseInt(ExtensionDate.getText().trim());
+            ClientInfo selectedClient = this.selectedClient;
+            int newCheckoutDate = calculateNewCheckoutDate(selectedClient.checkoutDate, extensionDays);
+            List<ClientInfo> allClients = FileRead.readClientData("clientInfo1.txt");
+            boolean roomAvailable = isRoomAvailable(newCheckoutDate, selectedClient.roomNumber, allClients);
+
+            if (roomAvailable) {
+                HaveRoom haveRoom = new HaveRoom(newCheckoutDate, selectedClient);
+                haveRoom.setVisible(true);
+                this.dispose();
+            }
+            else {
+                NoRoom noRoom = new NoRoom();
+                noRoom.setVisible(true);
             }
         });
 
