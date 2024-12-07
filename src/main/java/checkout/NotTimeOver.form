@@ -84,7 +84,7 @@
         <Property name="text" type="java.lang.String" value="&#xd655;&#xc778;"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;        System.exit(0);&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;String paymentAmount = PaymentAmount.getText().trim();&#xa;        if (paymentAmount.isEmpty()) {&#xa;            return;&#xa;        }&#xa;&#xa;        try (BufferedWriter writer = new BufferedWriter(new FileWriter(&quot;&#xc218;&#xc775;.txt&quot;, true))) {&#xa;            writer.write(paymentAmount);&#xa;            writer.newLine();&#xa;        } catch (IOException ioException) {&#xa;            javax.swing.JOptionPane.showMessageDialog(null, &quot;&#xc218;&#xc775; &#xae30;&#xb85d; &#xc911; &#xc624;&#xb958;&#xac00; &#xbc1c;&#xc0dd;&#xd588;&#xc2b5;&#xb2c8;&#xb2e4;: &quot; + ioException.getMessage());&#xa;        }&#xa;&#xa;        PaymentAmount.setText(&quot;&quot;);&#xa;        System.exit(0);&#xa;    }&#xa;    });"/>
       </AuxValues>
     </Component>
   </SubComponents>

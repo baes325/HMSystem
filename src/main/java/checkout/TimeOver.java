@@ -6,6 +6,9 @@ package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -13,7 +16,6 @@ import java.awt.event.ActionListener;
  */
 public class TimeOver extends javax.swing.JFrame {
     
-
     /**
      * Creates new form Payment
      */
@@ -88,6 +90,19 @@ public class TimeOver extends javax.swing.JFrame {
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String paymentAmount = PaymentAmount.getText().trim();
+                if (paymentAmount.isEmpty()) {
+                    return;
+                }
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("수익.txt", true))) {
+                    writer.write(paymentAmount);
+                    writer.newLine();
+                } catch (IOException ioException) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "수익 기록 중 오류가 발생했습니다: " + ioException.getMessage());
+                }
+
+                PaymentAmount.setText("");
                 System.exit(0);
             }
         });

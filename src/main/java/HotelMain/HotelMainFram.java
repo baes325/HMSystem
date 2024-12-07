@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import checkout.Extension;
+import food.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -269,12 +272,12 @@ public class HotelMainFram extends javax.swing.JFrame {
         CheckoutButt = new javax.swing.JButton();
         ModifyButt = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        foodTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        foodSelect = new javax.swing.JButton();
+        foodModify = new javax.swing.JButton();
+        foodDelete = new javax.swing.JButton();
+        foodAdd = new javax.swing.JButton();
         DeleteButt = new javax.swing.JButton();
 
         jLabel3.setText("예약 명단");
@@ -328,7 +331,7 @@ public class HotelMainFram extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        foodTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -339,27 +342,27 @@ public class HotelMainFram extends javax.swing.JFrame {
                 "메뉴명", "가격"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(foodTable);
 
         jLabel2.setText("식사");
 
-        jButton4.setText("선택");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        foodSelect.setText("선택");
+        foodSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                foodSelectActionPerformed(evt);
             }
         });
 
-        jButton5.setText("수정");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        foodModify.setText("수정");
+        foodModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                foodModifyActionPerformed(evt);
             }
         });
 
-        jButton6.setText("삭제");
+        foodDelete.setText("삭제");
 
-        jButton7.setText("메뉴추가");
+        foodAdd.setText("메뉴추가");
 
         DeleteButt.setText("삭제");
         DeleteButt.addActionListener(new java.awt.event.ActionListener() {
@@ -388,10 +391,10 @@ public class HotelMainFram extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(foodModify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(foodDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(foodAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(foodSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(73, 73, 73))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,13 +431,13 @@ public class HotelMainFram extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(foodSelect)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton5)
+                        .addComponent(foodModify)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton6)
+                        .addComponent(foodDelete)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton7))
+                        .addComponent(foodAdd))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
@@ -454,23 +457,23 @@ public class HotelMainFram extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckoutButtActionPerformed
 
     private void ModifyButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyButtActionPerformed
-         int selectedRow = jTable1.getSelectedRow();  // 선택된 행 인덱스
+         int selectedRow = foodTable.getSelectedRow();  // 선택된 행 인덱스
     if (selectedRow != -1) {  // 유효한 선택인지 확인
         // 테이블의 열 수 확인
-        int columnCount = jTable1.getColumnCount();  // 열 개수
+        int columnCount = foodTable.getColumnCount();  // 열 개수
 
         if (columnCount >= 10) {  // 9개 이상의 열이 있는지 확인
             // 테이블의 각 컬럼에서 데이터 가져오기
-            String clientNum = (String) jTable1.getValueAt(selectedRow, 3);  // 클라이언트 번호 (예시)
-            String name = (String) jTable1.getValueAt(selectedRow, 0);  // 이름 (예시)
-            String phone = (String) jTable1.getValueAt(selectedRow, 1);  // 전화번호 (예시)
-            String room = (String) jTable1.getValueAt(selectedRow, 2);  // 객실 (예시)
-            String cardNumber = (String) jTable1.getValueAt(selectedRow, 4);  // 카드번호 (예시)
-            String payday = (String) jTable1.getValueAt(selectedRow, 5);  // 결제일 (예시)
-            String checkin = (String) jTable1.getValueAt(selectedRow, 6);  // 체크인 날짜 (예시)
-            String payWay = (String) jTable1.getValueAt(selectedRow, 7);  // 결제 방식 (예시)
-            String roomType = (String) jTable1.getValueAt(selectedRow, 8);  // 객실 종류 (예시)
-            String checkCheck =(String) jTable1.getValueAt(selectedRow, 9); // 체크인 유무
+            String clientNum = (String) foodTable.getValueAt(selectedRow, 3);  // 클라이언트 번호 (예시)
+            String name = (String) foodTable.getValueAt(selectedRow, 0);  // 이름 (예시)
+            String phone = (String) foodTable.getValueAt(selectedRow, 1);  // 전화번호 (예시)
+            String room = (String) foodTable.getValueAt(selectedRow, 2);  // 객실 (예시)
+            String cardNumber = (String) foodTable.getValueAt(selectedRow, 4);  // 카드번호 (예시)
+            String payday = (String) foodTable.getValueAt(selectedRow, 5);  // 결제일 (예시)
+            String checkin = (String) foodTable.getValueAt(selectedRow, 6);  // 체크인 날짜 (예시)
+            String payWay = (String) foodTable.getValueAt(selectedRow, 7);  // 결제 방식 (예시)
+            String roomType = (String) foodTable.getValueAt(selectedRow, 8);  // 객실 종류 (예시)
+            String checkCheck =(String) foodTable.getValueAt(selectedRow, 9); // 체크인 유무
             // Reservation_Form을 생성하고 수정 모드로 설정
             Reservation_Form reservationForm = new Reservation_Form();
             
@@ -490,13 +493,13 @@ public class HotelMainFram extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_ModifyButtActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void foodSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodSelectActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_foodSelectActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void foodModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodModifyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_foodModifyActionPerformed
 
     private void DeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtActionPerformed
         // TODO add your handling code here:
@@ -517,10 +520,11 @@ public class HotelMainFram extends javax.swing.JFrame {
     private javax.swing.JButton ModifyButt;
     private javax.swing.JButton ReservationButt;
     private javax.swing.JTable clientTable;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton foodAdd;
+    private javax.swing.JButton foodDelete;
+    private javax.swing.JButton foodModify;
+    private javax.swing.JButton foodSelect;
+    private javax.swing.JTable foodTable;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -528,6 +532,5 @@ public class HotelMainFram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -66,7 +66,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="PaymentAmount">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PaymentAmount.setEditable(false);&#xa;int days = Extension.days + 1;&#xa;int ratePerDay = 100000;        &#xa;int totalAmount = days * ratePerDay;        &#xa;String strAmount = Integer.toString(totalAmount);&#xa;PaymentAmount.setText(strAmount);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PaymentAmount.setEditable(false);&#xa;int days = Extension.days + 1;&#xa;int ratePerDay = 100000;&#xa;int totalAmount = days * ratePerDay;&#xa;String strAmount = Integer.toString(totalAmount);&#xa;PaymentAmount.setText(strAmount);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -82,7 +82,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OKButtonActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;        System.exit(0);&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;String paymentAmount = PaymentAmount.getText().trim();&#xa;        if (paymentAmount.isEmpty()) {&#xa;            return;&#xa;        }&#xa;&#xa;        try (BufferedWriter writer = new BufferedWriter(new FileWriter(&quot;&#xc218;&#xc775;.txt&quot;, true))) {&#xa;            writer.write(paymentAmount);&#xa;            writer.newLine();&#xa;        } catch (IOException ioException) {&#xa;            javax.swing.JOptionPane.showMessageDialog(null, &quot;&#xc218;&#xc775; &#xae30;&#xb85d; &#xc911; &#xc624;&#xb958;&#xac00; &#xbc1c;&#xc0dd;&#xd588;&#xc2b5;&#xb2c8;&#xb2e4;: &quot; + ioException.getMessage());&#xa;        }&#xa;&#xa;        PaymentAmount.setText(&quot;&quot;);&#xa;        System.exit(0);&#xa;    }&#xa;    });"/>
       </AuxValues>
     </Component>
   </SubComponents>
