@@ -121,7 +121,6 @@ public class HaveRoom extends javax.swing.JFrame {
                  }
              }
             catch (IOException e) {
-                e.printStackTrace;
             }
             
             if (inputFile.delete()) {
@@ -198,9 +197,6 @@ public class HaveRoom extends javax.swing.JFrame {
         );
 
         OKButton.addActionListener(e -> {
-            FileRead.updateCheckoutDate("clientInfo1.txt", selectedClient, newCheckoutDate);
-
-            JOptionPane.showMessage(this, "체크아웃 날짜가 성공적으로 연장되었습니다.");
             this.dispose();
         });
 

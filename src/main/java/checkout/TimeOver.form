@@ -66,7 +66,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="PaymentAmount">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PaymentAmount.setEditable(false);&#xa;int days = SelectExtension.days + 1;&#xa;int ratePerDay = 10000;        &#xa;int totalAmount = days * ratePerDay;        &#xa;String strAmount = Integer.toString(totalAmount);&#xa;PaymentAmount.setText(strAmount);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PaymentAmount.setEditable(false);&#xa;int days = Extension.days + 1;&#xa;int ratePerDay = 100000;        &#xa;int totalAmount = days * ratePerDay;        &#xa;String strAmount = Integer.toString(totalAmount);&#xa;PaymentAmount.setText(strAmount);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

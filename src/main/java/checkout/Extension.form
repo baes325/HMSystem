@@ -71,7 +71,7 @@
         <Property name="text" type="java.lang.String" value="&#xc544;&#xb2c8;&#xc624;"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="NoButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                // No &#xbc84;&#xd2bc; &#xd074;&#xb9ad; &#xc2dc; &#xd504;&#xb85c;&#xadf8;&#xb7a8; &#xc885;&#xb8cc;&#xa;                CheckoutInfo checkoutInfo = new CheckoutInfo();&#xa;                checkoutInfo.setVisible(true);&#xa;            }&#xa;        });"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="NoButton.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                CheckoutInfo checkoutInfo = new CheckoutInfo();&#xa;                checkoutInfo.setVisible(true);&#xa;            }&#xa;        });"/>
       </AuxValues>
     </Component>
   </SubComponents>

@@ -18,6 +18,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import checkout.Extension;
+
 /**
  *
  * @author hoon
@@ -127,6 +129,8 @@ public class HotelMainFram extends javax.swing.JFrame {
                 // 원본 파일 삭제하고 임시 파일로 교체
                 if (reservationFile.delete() && tempFile.renameTo(reservationFile)) {
                     if (isDeleted) {
+                        Extension extension = new Extension();
+                        extension.setVisible(true);
                         JOptionPane.showMessageDialog(this, "체크아웃이 완료되었습니다.");
                     } else {
                         JOptionPane.showMessageDialog(this, "체크아웃 처리 중 문제가 발생했습니다.");
@@ -139,6 +143,9 @@ public class HotelMainFram extends javax.swing.JFrame {
             }
         } else { // 체크아웃 유무가 X일 때
             JOptionPane.showMessageDialog(this, "체크아웃이 불가능합니다. 상태가 'O'여야 합니다.");
+            Extension extension = new Extension();
+            extension.setVisible(true);
+            extension.dispose();
         }
     } else {
         JOptionPane.showMessageDialog(this, "체크아웃할 데이터를 선택하세요.");

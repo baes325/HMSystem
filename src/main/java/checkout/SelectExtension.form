@@ -77,7 +77,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OKButtonActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(e -&gt; {&#xa;    int extensionDays = Integer.parseInt(ExtensionDate.getText().trim());&#xa;    ClientInfo selectedClient = this.selectedClient;&#xa;    int newCheckoutDate = calculateNewCheckoutDate(selectedClient.checkoutDate, extensionDays);&#xa;    List&lt;ClientInfo&gt; allClients = FileRead.readClientData(&quot;clientInfo1.txt&quot;);&#xa;    boolean roomAvailable = isRoomAvailable(newCheckoutDate, selectedClient.roomNumber, allClients);&#xa;&#xa;    if (roomAvailable) {&#xa;        HaveRoom haveRoom = new HaveRoom(newCheckoutDate, selectedClient);&#xa;        haveRoom.setVisible(true);&#xa;        this.dispose();&#xa;    }&#xa;    else {&#xa;        NoRoom noRoom = new NoRoom();&#xa;        noRoom.setVisible(true);&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="OKButton.addActionListener(e -&gt; {&#xa;    handleInput();  // &#xc22b;&#xc790; &#xcc98;&#xb9ac; &#xba54;&#xc11c;&#xb4dc; &#xd638;&#xcd9c;&#xa;    if (room &gt; 0) {&#xa;        HaveRoom haveRoom = new HaveRoom();&#xa;        haveRoom.setVisible(true);&#xa;        this.dispose();&#xa;    }&#xa;    else {&#xa;        NoRoom noRoom = new NoRoom();&#xa;        noRoom.setVisible(true);&#xa;        this.dispose();&#xa;    }&#xa;});"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="Date">

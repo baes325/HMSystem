@@ -6,12 +6,16 @@ package checkout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Suvier
  */
 public class SelectExtension extends javax.swing.JFrame {
+    
+    public static int room = 0;
+    public static int extensionDays;
 
     /**
      * Creates new form SelectExtension
@@ -38,14 +42,19 @@ public class SelectExtension extends javax.swing.JFrame {
         return year * 10000 + month * 100 + day;
     }
     
-    public boolean isRoomAvailabe(int newCheckoutDate, String roomNumber, List<ClientInfo> allClients) {
-        for (ClientInfo client : allClients) {
-            if (client.roomNumber.equal(roomNumber) && client.checkInDate <= newCheckoutDate) {
-                return false;
-            }
-        }
-        return true;
+    private void handleInput() {
+    String input = ExtensionDate.getText().trim(); // 텍스트 필드에서 입력받은 값 가져오기
+
+    try {
+        int number = Integer.parseInt(input); // 숫자로 변환
+        // 변환된 숫자를 사용하여 원하는 작업을 수행
+        System.out.println("입력한 숫자는: " + number);
+    } catch (NumberFormatException ex) {
+        // 숫자가 아닌 값을 입력했을 때 처리
+        JOptionPane.showMessageDialog(this, "유효한 숫자를 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
     }
+}
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,20 +121,16 @@ public class SelectExtension extends javax.swing.JFrame {
         );
 
         OKButton.addActionListener(e -> {
-            int extensionDays = Integer.parseInt(ExtensionDate.getText().trim());
-            ClientInfo selectedClient = this.selectedClient;
-            int newCheckoutDate = calculateNewCheckoutDate(selectedClient.checkoutDate, extensionDays);
-            List<ClientInfo> allClients = FileRead.readClientData("clientInfo1.txt");
-            boolean roomAvailable = isRoomAvailable(newCheckoutDate, selectedClient.roomNumber, allClients);
-
-            if (roomAvailable) {
-                HaveRoom haveRoom = new HaveRoom(newCheckoutDate, selectedClient);
+            handleInput();  // 숫자 처리 메서드 호출
+            if (room > 0) {
+                HaveRoom haveRoom = new HaveRoom();
                 haveRoom.setVisible(true);
                 this.dispose();
             }
             else {
                 NoRoom noRoom = new NoRoom();
                 noRoom.setVisible(true);
+                this.dispose();
             }
         });
 

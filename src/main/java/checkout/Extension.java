@@ -5,8 +5,12 @@
 
 package checkout;
 
+import common.ClientInfo;
+import common.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  *
@@ -14,10 +18,18 @@ import java.awt.event.ActionListener;
  */
 
 public class Extension extends javax.swing.JFrame {
+    
+    public static int days = 5;
+    
+    private List<ClientInfo> clientList;
+    
 
     /** Creates new form CheckOut */
     public Extension() {
+        clientList = FileUtil.readClientInfo();
+        
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -79,7 +91,6 @@ public class Extension extends javax.swing.JFrame {
         NoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // No 버튼 클릭 시 프로그램 종료
                 CheckoutInfo checkoutInfo = new CheckoutInfo();
                 checkoutInfo.setVisible(true);
             }

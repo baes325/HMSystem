@@ -80,8 +80,8 @@ public class TimeOver extends javax.swing.JFrame {
         );
 
         PaymentAmount.setEditable(false);
-        int days = SelectExtension.days + 1;
-        int ratePerDay = 10000;
+        int days = Extension.days + 1;
+        int ratePerDay = 100000;
         int totalAmount = days * ratePerDay;
         String strAmount = Integer.toString(totalAmount);
         PaymentAmount.setText(strAmount);
