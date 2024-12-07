@@ -43,10 +43,10 @@ public class SelectExtension extends javax.swing.JFrame {
     }
     
     private void handleInput() {
-    String input = ExtensionDate.getText().trim(); // 텍스트 필드에서 입력받은 값 가져오기
+    String extensionDate = ExtensionDate.getText().trim(); // 텍스트 필드에서 입력받은 값 가져오기
 
     try {
-        int number = Integer.parseInt(input); // 숫자로 변환
+        int number = Integer.parseInt(extensionDate); // 숫자로 변환
         // 변환된 숫자를 사용하여 원하는 작업을 수행
         System.out.println("입력한 숫자는: " + number);
     } catch (NumberFormatException ex) {
