@@ -5,6 +5,8 @@
 package Login;
 
 import HotelMain.HotelMainFram;
+import HotelMainPro.HotelMain;
+import HotelMainPro.HotelMainFramPro;
 import javax.swing.JOptionPane;
 
 /**
@@ -123,18 +125,21 @@ public class Login extends javax.swing.JFrame {
         // 간단한 인증 로직
          if (ID.contains("user") && password.equals("123hotel")) {
             if (ID.contains("M")) {
-            JOptionPane.showMessageDialog(null, "반갑습니다. 관리자, " + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
-            HotelMainFram addition = new HotelMainFram();
+            JOptionPane.showMessageDialog(null, "반갑습니다. 관리자, "
+                    + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
+            HotelMainFramPro addition = new HotelMainFramPro();
     addition.setVisible(true);
     this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "반갑습니다. 직원, " + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
-            HotelMainFram addition = new HotelMainFram();
+            JOptionPane.showMessageDialog(null, "반갑습니다. 직원, " 
+                    + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
+            HotelMain addition = new HotelMain();
     addition.setVisible(true);
             this.setVisible(false);
         }
         } else {
-            JOptionPane.showMessageDialog(null, "로그인 실패. 다시 입력해주세요.","로그인 실패",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "로그인 실패. 다시 입력해주세요.",
+                    "로그인 실패",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_Login_ButtonActionPerformed
 
