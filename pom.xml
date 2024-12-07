@@ -22,6 +22,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>cse.oop2.s20221782.hotelmanagement.HotelManagement</exec.mainClass>
+        <exec.mainClass>cse.oop2.s20221782.hotelmanagement.HotelMainPro.HotelMainFramPro</exec.mainClass>
+
+        
     </properties>
 </project>
