@@ -22,6 +22,7 @@ import checkout.Extension;
 import food.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -250,7 +251,7 @@ public class HotelMainFram extends javax.swing.JFrame {
         
     
     }
-
+    
     
 
     /**
@@ -333,10 +334,7 @@ public class HotelMainFram extends javax.swing.JFrame {
 
         foodTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "메뉴 번호", "메뉴명", "가격"
@@ -442,6 +440,22 @@ public class HotelMainFram extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
+        foodModify.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel4 modifyMenu = new Hotel4(mainFrame);
+                modifyMenu.setVisible(true);
+            }
+        });
+        foodDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel5 deleteMenu = new Hotel5(mainFrame);
+                deleteMenu.setVisible(true);
+            }
+        });
         foodAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
