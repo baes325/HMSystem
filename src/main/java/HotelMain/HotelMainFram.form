@@ -227,12 +227,38 @@
         <Component class="javax.swing.JTable" name="foodTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="4">
+              <Table columnCount="3" rowCount="4">
+                <Column editable="true" title="&#xba54;&#xb274; &#xbc88;&#xd638;" type="java.lang.Object"/>
                 <Column editable="true" title="&#xba54;&#xb274;&#xba85;" type="java.lang.Object"/>
                 <Column editable="true" title="&#xac00;&#xaca9;" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="HotelMainFram_foodTable"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -266,6 +292,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xba54;&#xb274;&#xcd94;&#xac00;"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="foodAdd.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                    Hotel1 mainFrame = new Hotel1();&#xa;                    Hotel2 addFood = new Hotel2(mainFrame);&#xa;                    addFood.setVisible(true);&#xa;                }&#xa;            });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="DeleteButt">
       <Properties>

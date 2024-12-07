@@ -333,13 +333,13 @@ public class HotelMainFram extends javax.swing.JFrame {
 
         foodTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "메뉴명", "가격"
+                "메뉴 번호", "메뉴명", "가격"
             }
         ));
         jScrollPane1.setViewportView(foodTable);
@@ -441,6 +441,15 @@ public class HotelMainFram extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
+
+        foodAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel2 addFood = new Hotel2(mainFrame);
+                addFood.setVisible(true);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
