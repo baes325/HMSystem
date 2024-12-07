@@ -480,23 +480,23 @@ public class HotelMainFram extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckoutButtActionPerformed
 
     private void ModifyButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyButtActionPerformed
-         int selectedRow = foodTable.getSelectedRow();  // 선택된 행 인덱스
+         int selectedRow = clientTable.getSelectedRow();  // 선택된 행 인덱스
     if (selectedRow != -1) {  // 유효한 선택인지 확인
         // 테이블의 열 수 확인
-        int columnCount = foodTable.getColumnCount();  // 열 개수
+        int columnCount = clientTable.getColumnCount();  // 열 개수
 
         if (columnCount >= 10) {  // 9개 이상의 열이 있는지 확인
             // 테이블의 각 컬럼에서 데이터 가져오기
-            String clientNum = (String) foodTable.getValueAt(selectedRow, 3);  // 클라이언트 번호 (예시)
-            String name = (String) foodTable.getValueAt(selectedRow, 0);  // 이름 (예시)
-            String phone = (String) foodTable.getValueAt(selectedRow, 1);  // 전화번호 (예시)
-            String room = (String) foodTable.getValueAt(selectedRow, 2);  // 객실 (예시)
-            String cardNumber = (String) foodTable.getValueAt(selectedRow, 4);  // 카드번호 (예시)
-            String payday = (String) foodTable.getValueAt(selectedRow, 5);  // 결제일 (예시)
-            String checkin = (String) foodTable.getValueAt(selectedRow, 6);  // 체크인 날짜 (예시)
-            String payWay = (String) foodTable.getValueAt(selectedRow, 7);  // 결제 방식 (예시)
-            String roomType = (String) foodTable.getValueAt(selectedRow, 8);  // 객실 종류 (예시)
-            String checkCheck =(String) foodTable.getValueAt(selectedRow, 9); // 체크인 유무
+            String clientNum = (String) clientTable.getValueAt(selectedRow, 3);  // 클라이언트 번호 (예시)
+            String name = (String) clientTable.getValueAt(selectedRow, 0);  // 이름 (예시)
+            String phone = (String) clientTable.getValueAt(selectedRow, 1);  // 전화번호 (예시)
+            String room = (String) clientTable.getValueAt(selectedRow, 2);  // 객실 (예시)
+            String cardNumber = (String) clientTable.getValueAt(selectedRow, 4);  // 카드번호 (예시)
+            String payday = (String) clientTable.getValueAt(selectedRow, 5);  // 결제일 (예시)
+            String checkin = (String) clientTable.getValueAt(selectedRow, 6);  // 체크인 날짜 (예시)
+            String payWay = (String) clientTable.getValueAt(selectedRow, 7);  // 결제 방식 (예시)
+            String roomType = (String) clientTable.getValueAt(selectedRow, 8);  // 객실 종류 (예시)
+            String checkCheck =(String) clientTable.getValueAt(selectedRow, 9); // 체크인 유무
             // Reservation_Form을 생성하고 수정 모드로 설정
             Reservation_Form reservationForm = new Reservation_Form();
             
