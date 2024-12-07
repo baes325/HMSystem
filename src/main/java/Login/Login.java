@@ -133,7 +133,7 @@ public class Login extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "반갑습니다. 직원, " 
                     + ID,"로그인 완료",JOptionPane.INFORMATION_MESSAGE);
-            HotelMain addition = new HotelMain();
+            HotelMainFram addition = new HotelMainFram();
     addition.setVisible(true);
             this.setVisible(false);
         }
