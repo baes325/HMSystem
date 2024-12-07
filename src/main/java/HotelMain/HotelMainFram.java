@@ -22,7 +22,6 @@ import checkout.Extension;
 import food.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 
 /**
  *
@@ -505,6 +504,13 @@ public class HotelMainFram extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
+        foodSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel3 selectMenu = new Hotel3();
+                selectMenu.setVisible(true);
+            }
+        });
         foodModify.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

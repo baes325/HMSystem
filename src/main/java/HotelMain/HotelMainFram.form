@@ -274,6 +274,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="foodSelectActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="foodSelect.addActionListener(new ActionListener() {&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                Hotel3 selectMenu = new Hotel3();&#xa;                selectMenu.setVisible(true);&#xa;                }&#xa;            });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="foodModify">
       <Properties>

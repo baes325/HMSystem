@@ -19,6 +19,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import checkout.Extension;
+import food.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author hoon
@@ -33,12 +38,15 @@ public class HotelMainFramPro extends javax.swing.JFrame {
         initComponents();
         
         DefaultTableModel reservationTableModel = (DefaultTableModel) clientTablePro.getModel();
+        DefaultTableModel foodTableModel = (DefaultTableModel) foodTable.getModel(); // 음식 테이블 모델
 
         // 텍스트 파일에서 데이터 읽기
         loadTableData(reservationTableModel);
+        loadFoodTableData(foodTableModel); // 음식 데이터 파일
 
         // 파일 변경 감지 추가
         addFileWatchService(reservationTableModel);
+        addFoodFileWatchService(foodTableModel);
         
          DeleteButt.addActionListener(e -> {
         int selectedRow = clientTablePro.getSelectedRow(); // 선택된 행 인덱스 가져오기
@@ -124,6 +132,8 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                 // 원본 파일 삭제하고 임시 파일로 교체
                 if (reservationFile.delete() && tempFile.renameTo(reservationFile)) {
                     if (isDeleted) {
+                        Extension extension = new Extension();
+                        extension.setVisible(true);
                         JOptionPane.showMessageDialog(this, "체크아웃이 완료되었습니다.");
                     } 
                 } 
@@ -131,6 +141,9 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "파일 처리 중 오류가 발생했습니다: " + ex.getMessage());
             }
         } else { // 체크아웃 유무가 X일 때
+            Extension extension = new Extension();
+            extension.setVisible(true);
+            extension.dispose();
             JOptionPane.showMessageDialog(this, "체크아웃이 불가능합니다. 상태가 'O'여야 합니다.");
         }
     } else {
@@ -200,6 +213,36 @@ public class HotelMainFramPro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "파일을 읽을 수 없습니다: " + e.getMessage());
         }
     }
+    
+    private void loadFoodTableData(DefaultTableModel tableModel) {
+        try {
+            // 절대 경로를 사용하여 파일 객체 생성
+            String paths = System.getProperty("user.dir");
+            File FoodFile = new File(paths + "/menuData.txt");
+
+            if (!FoodFile.exists()) {
+                JOptionPane.showMessageDialog(this, "menuData.txt 파일이 존재하지 않습니다.");
+                return;
+            }
+            
+            
+            
+            // 파일 읽기
+            BufferedReader br = new BufferedReader(new FileReader(FoodFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] rowData = line.split(","); // "/" 구분자로 데이터 분리
+                tableModel.addRow(new Object[]{
+        rowData[0], // 메뉴 번호
+        rowData[1], // 메뉴명
+        rowData[2], // 메뉴 가격   
+    });
+}
+            br.close(); // 리소스 닫기
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "파일을 읽을 수 없습니다: " + e.getMessage());
+        }
+    }
 
     // 파일 변경 감지 설정 메서드
     private void addFileWatchService(DefaultTableModel tableModel) {
@@ -219,6 +262,37 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                             SwingUtilities.invokeLater(() -> {
                                 tableModel.setRowCount(0); // 기존 데이터 초기화
                                 loadTableData(tableModel); // 새 데이터 로드
+                            });
+                        }
+                    }
+                    key.reset();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "파일 감지 중 오류가 발생했습니다: " + e.getMessage());
+            }
+        }).start();
+        
+    
+    }
+    
+    // 파일 변경 감지 설정 메서드
+    private void addFoodFileWatchService(DefaultTableModel tableModel) {
+        new Thread(() -> {
+            try {
+                String paths = System.getProperty("user.dir");
+                Path dirPath = Paths.get(paths);
+                WatchService watchService = dirPath.getFileSystem().newWatchService();
+                dirPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+                while (true) {
+                    WatchKey key = watchService.take(); // 파일 변경 이벤트 대기
+                    for (WatchEvent<?> event : key.pollEvents()) {
+                        Path changed = (Path) event.context();
+                        if (changed.getFileName().toString().equals("menuData.txt")) {
+                            // 파일 변경 시 테이블 데이터 갱신
+                            SwingUtilities.invokeLater(() -> {
+                                tableModel.setRowCount(0); // 기존 데이터 초기화
+                                loadFoodTableData(tableModel); // 새 데이터 로드
                             });
                         }
                     }
@@ -253,13 +327,13 @@ public class HotelMainFramPro extends javax.swing.JFrame {
         CheckoutButt = new javax.swing.JButton();
         ModifyButt = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        foodSelect = new javax.swing.JButton();
+        foodModify = new javax.swing.JButton();
+        foodDelete = new javax.swing.JButton();
+        foodAdd = new javax.swing.JButton();
         DeleteButt = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        foodTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -321,23 +395,23 @@ public class HotelMainFramPro extends javax.swing.JFrame {
 
         jLabel2.setText("식사");
 
-        jButton4.setText("선택");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        foodSelect.setText("선택");
+        foodSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                foodSelectActionPerformed(evt);
             }
         });
 
-        jButton5.setText("수정");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        foodModify.setText("수정");
+        foodModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                foodModifyActionPerformed(evt);
             }
         });
 
-        jButton6.setText("삭제");
+        foodDelete.setText("삭제");
 
-        jButton7.setText("메뉴추가");
+        foodAdd.setText("메뉴추가");
 
         DeleteButt.setText("삭제");
         DeleteButt.addActionListener(new java.awt.event.ActionListener() {
@@ -346,7 +420,7 @@ public class HotelMainFramPro extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        foodTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -354,7 +428,7 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                 "메뉴번호", "메뉴이름", "가격"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(foodTable);
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -418,7 +492,7 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                             .addComponent(CheckoutButt)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(foodSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -443,11 +517,11 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton7)
+                        .addComponent(foodAdd)
                         .addGap(32, 32, 32)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(foodModify, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(foodDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(217, 217, 217)
@@ -488,10 +562,10 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6)
-                            .addComponent(jButton4)))
+                            .addComponent(foodAdd)
+                            .addComponent(foodModify)
+                            .addComponent(foodDelete)
+                            .addComponent(foodSelect)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -503,6 +577,38 @@ public class HotelMainFramPro extends javax.swing.JFrame {
                         .addComponent(GainUnion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
+
+        foodSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel3 selectMenu = new Hotel3();
+                selectMenu.setVisible(true);
+            }
+        });
+        foodModify.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel4 modifyMenu = new Hotel4(mainFrame);
+                modifyMenu.setVisible(true);
+            }
+        });
+        foodDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel5 deleteMenu = new Hotel5(mainFrame);
+                deleteMenu.setVisible(true);
+            }
+        });
+        foodAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel1 mainFrame = new Hotel1();
+                Hotel2 addFood = new Hotel2(mainFrame);
+                addFood.setVisible(true);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -555,13 +661,13 @@ public class HotelMainFramPro extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_ModifyButtActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void foodSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodSelectActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_foodSelectActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void foodModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodModifyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_foodModifyActionPerformed
 
     private void DeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtActionPerformed
         // TODO add your handling code here:
@@ -570,11 +676,11 @@ public class HotelMainFramPro extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //수정창으로 넘어가게 하기
-        int selectedRow = jTable2.getSelectedRow();
+        int selectedRow = foodTable.getSelectedRow();
         if (selectedRow != -1) {
-            String name = (String) jTable2.getValueAt(selectedRow, 0);
-            String id = (String) jTable2.getValueAt(selectedRow, 1);
-            boolean Admin = (boolean) jTable2.getValueAt(selectedRow, 2);
+            String name = (String) foodTable.getValueAt(selectedRow, 0);
+            String id = (String) foodTable.getValueAt(selectedRow, 1);
+            boolean Admin = (boolean) foodTable.getValueAt(selectedRow, 2);
 
       
         } else {
@@ -607,12 +713,13 @@ public class HotelMainFramPro extends javax.swing.JFrame {
     private javax.swing.JButton ModifyButt;
     private javax.swing.JButton ReservationButt;
     private javax.swing.JTable clientTablePro;
+    private javax.swing.JButton foodAdd;
+    private javax.swing.JButton foodDelete;
+    private javax.swing.JButton foodModify;
+    private javax.swing.JButton foodSelect;
+    private javax.swing.JTable foodTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
@@ -623,7 +730,6 @@ public class HotelMainFramPro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }
