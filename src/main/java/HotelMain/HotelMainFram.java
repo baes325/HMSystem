@@ -38,12 +38,15 @@ public class HotelMainFram extends javax.swing.JFrame {
         initComponents();
         
         DefaultTableModel reservationTableModel = (DefaultTableModel) clientTable.getModel();
+        DefaultTableModel foodTableModel = (DefaultTableModel) foodTable.getModel(); // 음식 테이블 모델
 
         // 텍스트 파일에서 데이터 읽기
         loadTableData(reservationTableModel);
+        loadFoodTableData(foodTableModel); // 음식 데이터 파일
 
         // 파일 변경 감지 추가
         addFileWatchService(reservationTableModel);
+        addFoodFileWatchService(foodTableModel);
         
          DeleteButt.addActionListener(e -> {
         int selectedRow = clientTable.getSelectedRow(); // 선택된 행 인덱스 가져오기
@@ -220,6 +223,36 @@ public class HotelMainFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "파일을 읽을 수 없습니다: " + e.getMessage());
         }
     }
+    
+    private void loadFoodTableData(DefaultTableModel tableModel) {
+        try {
+            // 절대 경로를 사용하여 파일 객체 생성
+            String paths = System.getProperty("user.dir");
+            File FoodFile = new File(paths + "/menuData.txt");
+
+            if (!FoodFile.exists()) {
+                JOptionPane.showMessageDialog(this, "menuData.txt 파일이 존재하지 않습니다.");
+                return;
+            }
+            
+            
+            
+            // 파일 읽기
+            BufferedReader br = new BufferedReader(new FileReader(FoodFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] rowData = line.split(","); // "/" 구분자로 데이터 분리
+                tableModel.addRow(new Object[]{
+        rowData[0], // 메뉴 번호
+        rowData[1], // 메뉴명
+        rowData[2], // 메뉴 가격   
+    });
+}
+            br.close(); // 리소스 닫기
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "파일을 읽을 수 없습니다: " + e.getMessage());
+        }
+    }
 
     // 파일 변경 감지 설정 메서드
     private void addFileWatchService(DefaultTableModel tableModel) {
@@ -239,6 +272,38 @@ public class HotelMainFram extends javax.swing.JFrame {
                             SwingUtilities.invokeLater(() -> {
                                 tableModel.setRowCount(0); // 기존 데이터 초기화
                                 loadTableData(tableModel); // 새 데이터 로드
+                            });
+                        }
+                    }
+                    key.reset();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "파일 감지 중 오류가 발생했습니다: " + e.getMessage());
+            }
+        }).start();
+        
+    
+    }
+    
+    
+    // 파일 변경 감지 설정 메서드
+    private void addFoodFileWatchService(DefaultTableModel tableModel) {
+        new Thread(() -> {
+            try {
+                String paths = System.getProperty("user.dir");
+                Path dirPath = Paths.get(paths);
+                WatchService watchService = dirPath.getFileSystem().newWatchService();
+                dirPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+                while (true) {
+                    WatchKey key = watchService.take(); // 파일 변경 이벤트 대기
+                    for (WatchEvent<?> event : key.pollEvents()) {
+                        Path changed = (Path) event.context();
+                        if (changed.getFileName().toString().equals("menuData.txt")) {
+                            // 파일 변경 시 테이블 데이터 갱신
+                            SwingUtilities.invokeLater(() -> {
+                                tableModel.setRowCount(0); // 기존 데이터 초기화
+                                loadFoodTableData(tableModel); // 새 데이터 로드
                             });
                         }
                     }
